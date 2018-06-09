@@ -5,7 +5,7 @@
 
 'use strict';
 
-import config from './../../config';
+import config from '../../config';
 
 import {User} from '../db/mongodb'
 import bcrypt from 'bcryptjs';

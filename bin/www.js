@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 
-import app from '../app';
 import config from '../config';
+import app from '../app';
 
 let debug = require('debug')('loris:server');
 import http from 'http';

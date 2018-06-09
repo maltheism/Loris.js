@@ -4,7 +4,7 @@ const path = require('path');
 const externals = require('webpack-node-externals')
 
 module.exports = {
-    entry: './bin/www',
+    entry: './bin/www.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'loris-webpack.bundle.js'

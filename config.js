@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     app: {
         name: 'Loris',
         version: '0.0.1',
@@ -35,4 +35,4 @@ module.exports = {
             development: 'mongodb://127.0.0.1:27017/loris'
         }
     }
-}
+};

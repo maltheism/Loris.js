@@ -95,13 +95,13 @@
  * Module dependencies.
  */
 
-var _app = __webpack_require__(1);
-
-var _app2 = _interopRequireDefault(_app);
-
-var _config = __webpack_require__(4);
+var _config = __webpack_require__(1);
 
 var _config2 = _interopRequireDefault(_config);
+
+var _app = __webpack_require__(2);
+
+var _app2 = _interopRequireDefault(_app);
 
 var _http = __webpack_require__(13);
 
@@ -191,15 +191,64 @@ server.on('listening', onListening);
 "use strict";
 
 
-var _helmet = __webpack_require__(2);
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    app: {
+        name: 'Loris',
+        version: '0.0.1',
+        info: 'Open Science Platform'
+    },
+    port: {
+        server: 7777,
+        socket: 6666
+    },
+    security: {
+        log: {
+            enabled: false,
+            fileName: 'loris_log'
+        },
+        cookie: {
+            secret: '63iVzNwvZu3AHwxAjAw2UD9CYyC22vGgbGK86mcAXUXvxWNj3C',
+            maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week cookie age.
+        }
+    },
+    gcloud: {
+        use: 'deployment',
+        deployment: '/home/intralizee/Keys/intralizee.json',
+        development: '/Users/intralizee/Development/Keys/intralizee.json'
+    },
+    database: {
+        mysql: {
+            use: 'development', // set to 'deployment' or 'development' to switch (development)
+            deployment: '/home/intralizee/Keys/loris.json',
+            development: '/Users/intralizee/Development/Keys/mysql/loris.json'
+        },
+        mongodb: {
+            use: 'deployment', // set to 'deployment' or 'development' to switch (development)
+            deployment: 'mongodb://alizee:gf338yZqLM7Cvsfp4EoX@ds153380.mlab.com:53380/loris',
+            development: 'mongodb://127.0.0.1:27017/loris'
+        }
+    }
+};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _helmet = __webpack_require__(3);
 
 var _helmet2 = _interopRequireDefault(_helmet);
 
-var _express = __webpack_require__(3);
+var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _config = __webpack_require__(4);
+var _config = __webpack_require__(1);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -312,62 +361,16 @@ io.on('connection', function (socket) {
 module.exports = app;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = require("helmet");
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = {
-    app: {
-        name: 'Loris',
-        version: '0.0.1',
-        info: 'Open Science Platform'
-    },
-    port: {
-        server: 7777,
-        socket: 6666
-    },
-    security: {
-        log: {
-            enabled: false,
-            fileName: 'loris_log'
-        },
-        cookie: {
-            secret: '63iVzNwvZu3AHwxAjAw2UD9CYyC22vGgbGK86mcAXUXvxWNj3C',
-            maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week cookie age.
-        }
-    },
-    gcloud: {
-        use: 'deployment',
-        deployment: '/home/intralizee/Keys/intralizee.json',
-        development: '/Users/intralizee/Development/Keys/intralizee.json'
-    },
-    database: {
-        mysql: {
-            use: 'development', // set to 'deployment' or 'development' to switch (development)
-            deployment: '/home/intralizee/Keys/loris.json',
-            development: '/Users/intralizee/Development/Keys/mysql/loris.json'
-        },
-        mongodb: {
-            use: 'deployment', // set to 'deployment' or 'development' to switch (development)
-            deployment: 'mongodb://alizee:gf338yZqLM7Cvsfp4EoX@ds153380.mlab.com:53380/loris',
-            development: 'mongodb://127.0.0.1:27017/loris'
-        }
-    }
-};
 
 /***/ }),
 /* 5 */
@@ -406,7 +409,7 @@ module.exports = require("express-socket.io-session");
 "use strict";
 
 
-var _express = __webpack_require__(3);
+var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -432,7 +435,7 @@ module.exports = router;
 "use strict";
 
 
-var _express = __webpack_require__(3);
+var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -748,7 +751,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PublicKeys = exports.Forges = exports.Clients = exports.User = exports.Market = undefined;
 
-var _config = __webpack_require__(4);
+var _config = __webpack_require__(1);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -1014,7 +1017,7 @@ exports.authorize = authorize;
 exports.isLogin = isLogin;
 exports.socketHandler = socketHandler;
 
-var _config = __webpack_require__(4);
+var _config = __webpack_require__(1);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -1327,7 +1330,7 @@ exports.all = all;
 exports.getUsersAvatars = getUsersAvatars;
 exports.updateUserAvatar = updateUserAvatar;
 
-var _config = __webpack_require__(4);
+var _config = __webpack_require__(1);
 
 var _config2 = _interopRequireDefault(_config);
 
