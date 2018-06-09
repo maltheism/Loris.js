@@ -18,6 +18,8 @@ MongoDB
 
 * cd Loris && npm install
 
+* npm run compile
+
 ## Community
 
 todo

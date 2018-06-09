@@ -68,7 +68,7 @@ export function updateSocketID(socket, cb) {
  * @param cb
  */
 export function registerSocket(data, cb) {
-    import uuid from 'uuid';
+    const uuid = require('uuid');
     data.uuid = data.uuid
         ? data.uuid
         : uuid.v4();

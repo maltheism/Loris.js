@@ -12,10 +12,14 @@ const mongoose = require('mongoose'),
     AutoIncrement = require('mongoose-sequence')(mongoose);
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.database.mongodb.use === 'deployment' ? config.database.mongodb.deployment : config.database.mongodb.development);
+mongoose.connect(config.database.mongodb.use === 'deployment'
+    ? config.database.mongodb.deployment
+    : config.database.mongodb.development);
 
 let db = mongoose.connection;
+
 db.on('error', console.error.bind(console, 'MongoDB -> connection error: '));
+
 db.once('open', cb => {
     console.log('MongoDB -> open');
     config.database.mongodb.use === 'deployment'
@@ -39,9 +43,9 @@ import {
     Schema_PublicKeys
 } from './schema/client';
 
-import {Schema_User} from 'schema/user';
+import {Schema_User} from './schema/user';
 
-import {Schema_Market} from 'schema/market';
+import {Schema_Market} from './schema/market';
 Schema_Market.plugin(AutoIncrement);
 Schema_Market.plugin(paginate);
 
