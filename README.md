@@ -1,4 +1,4 @@
-#LORIS (Node.js)
+# LORIS (Node.js)
 
 The non-official rewrite of Loris.
 
