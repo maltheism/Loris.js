@@ -1,0 +1,6 @@
+.idea
+.settings
+package-lock.json
+npm-debug.log
+node_modules/
+client/loris-react/node_modules/
