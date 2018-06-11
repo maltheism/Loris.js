@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import 'typeface-roboto';
 import './App.css';
+
+import ButtonAppBar from './jsx/AppBar'
+import SwipeableTemporaryDrawer from './jsx/SwipeableDrawer'
 
 class App extends Component {
     state = {
@@ -25,6 +29,7 @@ class App extends Component {
     render() {
         return (
             <div className='App'>
+                <ButtonAppBar/>
                 <header className='App-header'>
                     <img src={logo} className='App-logo' alt='logo' />
                     <h1 className='App-title'>Welcome to React</h1>
@@ -32,6 +37,9 @@ class App extends Component {
                 <p className='App-intro'>
                     {this.state.response}
                 </p>
+                <SwipeableTemporaryDrawer>
+                    <button>NO</button>N
+                </SwipeableTemporaryDrawer>
             </div>
         );
     }
