@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Sidebar from './jsx/Sidebar'
+import SidebarContent from './jsx/SidebarContent';
 import 'typeface-roboto';
 import './App.css';
 
-import ButtonAppBar from './jsx/AppBar'
-import SwipeableTemporaryDrawer from './jsx/SwipeableDrawer'
-
 class App extends Component {
     state = {
-        response: ''
+        response: '',
+        docked: true,
+        open: true,
+        pullRight: false,
     };
 
     componentDidMount() {
@@ -21,25 +22,40 @@ class App extends Component {
         const response = await fetch('/api/hello');
         const body = await response.json();
 
-        if (response.status !== 200) throw Error(body.message);
+        if (response.status !== 200)
+            throw Error(body.message);
 
         return body;
     };
 
     render() {
+        const sidebar = <SidebarContent />;
+
+        const sidebarProps = {
+            sidebar: sidebar,
+            open: this.state.open,
+            docked: this.state.docked,
+            onSetOpen: this.onSetOpen,
+        };
+
         return (
             <div className='App'>
-                <ButtonAppBar/>
                 <header className='App-header'>
-                    <img src={logo} className='App-logo' alt='logo' />
-                    <h1 className='App-title'>Welcome to React</h1>
+                    <h1 className='App-title'>Welcome to Loris</h1>
                 </header>
-                <p className='App-intro'>
-                    {this.state.response}
-                </p>
-                <SwipeableTemporaryDrawer>
-                    <button>NO</button>N
-                </SwipeableTemporaryDrawer>
+                <Sidebar {...sidebarProps}></Sidebar>
+                <div style={{
+                    width: '100%',
+                    color: 'white',
+                    height: '100px',
+                    background: 'white',
+                    verticalAlign: 'top',
+                    display: 'table-cell'
+                }}>
+                    <p className='App-intro'>
+                        {this.state.response}
+                    </p>
+                </div>
             </div>
         );
     }
