@@ -39,7 +39,7 @@
     "babel-preset-env": "^1.7.0",
     "concurrently": "^3.6.0",
     "json-loader": "^0.5.7",
-    "webpack": "^4.16.0",
+    "webpack": "^4.16.1",
     "webpack-cli": "^3.0.8",
     "webpack-node-externals": "^1.7.2"
   }
