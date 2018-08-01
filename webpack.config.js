@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const externals = require('webpack-node-externals')
+const externals = require('webpack-node-externals');
 
 module.exports = {
     entry: './bin/www.js',
