@@ -32,7 +32,7 @@ class Sidebar extends Component {
 
         this.state = {
             // width of the sidebar in pixels
-            sidebarWidth: props.defaultSidebarWidth,
+            sidebar: props.sidebar,
         };
 
         this.saveSidebarRef = this.saveSidebarRef.bind(this);
@@ -49,17 +49,18 @@ class Sidebar extends Component {
         this.sidebar = node;
     }
 
-
     saveSidebarWidth() {
         const width = this.sidebar.offsetWidth;
 
-        if (width !== this.state.sidebarWidth) {
-            this.setState({sidebarWidth: width});
+        if (width !== this.state.sidebar.width) {
+            let sidebar = this.state.sidebar;
+            sidebar.width = width;
+            this.setState({sidebar});
         }
     }
 
     render() {
-        const sidebarStyle = {...style.sidebar, ...this.props.styles.sidebar};
+        const styleSidebar = {...style.sidebar, ...this.props.styles.sidebar};
         const rootProps = {
             style: {...style.root, ...this.props.styles.root},
             role: 'navigation',
@@ -67,14 +68,14 @@ class Sidebar extends Component {
 
         // sidebarStyle right/left
         if (this.props.pullRight) {
-            sidebarStyle.right = 0;
+            styleSidebar.right = 0;
         } else {
-            sidebarStyle.left = 0;
+            styleSidebar.left = 0;
         }
 
         return (
             <div {...rootProps}>
-                <div style={sidebarStyle} ref={this.saveSidebarRef}>
+                <div style={styleSidebar} ref={this.saveSidebarRef}>
                     {this.props.content}
                 </div>
             </div>
@@ -96,14 +97,15 @@ Sidebar.propTypes = {
     // Place the sidebar on the right
     pullRight: PropTypes.bool,
 
-    // Initial sidebar width when page loads
-    defaultSidebarWidth: PropTypes.number,
+    sidebar: PropTypes.object,
 };
 
 Sidebar.defaultProps = {
     styles: {},
     pullRight: false,
-    defaultSidebarWidth: 0,
+    sidebar: {
+        width: 0,
+    }
 };
 
 export default Sidebar;
