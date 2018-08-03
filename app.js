@@ -75,14 +75,14 @@ app.use((err, req, res, next) => {
 io.on('connection', socket => {
     console.log('[*] Websocket connection found!' + '\n');
 
-    const client = require('./libraries/client/client_middleware');
+    const client = require('./libraries/client/client');
     client.socketHandler(socket);
     /* socketHandler [events] list.
      *   'client_identity' 'client_register' 'disconnect' 'message' 'error'
      *   'client_ready' 'client_error'
      */
 
-    const user = require('./libraries/user/user_middleware');
+    const user = require('./libraries/user/user');
     user.socketHandler(socket);
     /* socketHandler [events] list.
      *   'login'

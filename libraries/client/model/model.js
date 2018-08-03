@@ -5,7 +5,7 @@
 
 'use strict';
 
-import {Clients} from '../db/mongodb'
+import {Clients} from '../../db/mongodb'
 
 /**
  * @name getUUID

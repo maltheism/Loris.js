@@ -7,9 +7,7 @@
 
 import config from '../../config';
 
-const mongoose = require('mongoose'),
-    paginate = require('mongoose-paginate'),
-    AutoIncrement = require('mongoose-sequence')(mongoose);
+const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database.mongodb.use === 'deployment'
@@ -39,20 +37,9 @@ mongoose.connection.on('connected', () => { console.log('MongoDB -> connected');
 
 import {
     Schema_Client,
-    Schema_Forge,
-    Schema_PublicKeys
 } from './schema/client';
 
 import {Schema_User} from './schema/user';
 
-import {Schema_Market} from './schema/market';
-Schema_Market.plugin(AutoIncrement);
-Schema_Market.plugin(paginate);
-
-export let Market = mongoose.model('Market', Schema_Market);
-
 export let User = mongoose.model('User', Schema_User);
 export let Clients = mongoose.model('Client', Schema_Client);
-
-export let Forges = mongoose.model('Forge', Schema_Forge);
-export let PublicKeys = mongoose.model('PublicKeys', Schema_PublicKeys);

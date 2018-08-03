@@ -5,7 +5,7 @@
 
 'use strict';
 
-import * as Client from './client_model'
+import * as Client from './model/model'
 
 export function socketHandler(socket) {
 

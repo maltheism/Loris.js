@@ -5,6 +5,8 @@
 
 'use strict';
 
+const mongoose = require('mongoose');
+
 const Schema_Client = mongoose.Schema({
     socketId: String,
     uuid: String,

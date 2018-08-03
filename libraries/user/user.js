@@ -5,28 +5,33 @@
 
 'use strict';
 
-import config from '../../config';
-import * as User from './user_model';
+import * as User from './model/model';
 
 //-| login |------------------------------|
 export function login(req, res, next) {
-    if (req.session.user)
-        return res.redirect('/home');
+    if (req.session.user) {
+        res.cookie('session', JSON.stringify({
+            user: req.session.user
+        }));
+        return res.redirect('/');
+    }
 
-    let user = {
-        username : req.body.username,
-        password : req.body.password,
-        ip : require('request-ip').getClientIp(req)
+    const user = {
+        email : req.body.email,
+        password : req.body.password
     };
 
-    User.authenticate(user, function(err, dbUser) {
+    User.authenticate(user, (err, dbUser) => {
         if (err) return next(err);
         if (dbUser) { // details correct - login user.
             req.session.user = {
                 id: dbUser.id,
-                username: dbUser.username
+                email: dbUser.email
             };
-            res.redirect('/home');
+            res.cookie('session', JSON.stringify({
+                user: req.session.user
+            }));
+            res.redirect('/');
         } else { // incorrect details
             res.redirect('/login');
         }
@@ -35,55 +40,97 @@ export function login(req, res, next) {
 
 //-| register |------------------------------|
 export function register(req, res, next) {
-    if (req.session.user)
-        return res.redirect('/home');
+    if (req.session.user) {
+        res.cookie('session', JSON.stringify({
+            user: req.session.user
+        }));
+        return res.redirect('/');
+    }
+
+    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+        return res.json({
+            response: {
+                code: 1,
+                description: 'Please select captcha'
+            }
+        });
+    }
 
     let user = {
-        username : req.body.username,
-        password : req.body.password,
         email : req.body.email,
-        gender : req.body.gender,
-        ip : require('request-ip').getClientIp(req)
+        password : req.body.password
     };
 
-    User.register(user, (err, status) => {
-        if (err) return next(err);
-        if (status == 'email already exists error')
-            res.redirect('/register');
-        else if(status === 'user already exists error')
-            res.redirect('/register');
-        else { // Create account.
-            User.create(user, (err, dbUser) => {
-                if (err) {
-                    console.log('register create error: ' + err);
-                    return next(err);
-                }
-                else {
-                    User.authenticate(user, (err, dbUser) => {
-                        if (err) {
-                            console.log('user.authenticate error: ' + err);
-                            return next(err);
-                        }
-                        else if (user) {
-                            req.session.user = {
-                                id: dbUser.id,
-                                username: dbUser.username
-                            };
-                            res.redirect('/home');
-                        } else {
-                            res.redirect('/login');
-                        }
-                    })
-                }
-            });
-        }
+    const https = require('https');
+    const url = 'https://www.google.com/recaptcha/api/siteverify?secret=' +
+        '6Ld0gWEUAAAAAB993WqFavGIslEpDtrxNBJr2Nqr' +
+        '&response=' + req.body['g-recaptcha-response'] +
+        '&remoteip=' + req.connection.remoteAddress;
+
+    https.get(url, response => {
+        response.setEncoding('utf8');
+        let body = '';
+        response.on('data', data => {
+            body += data;
+        });
+        response.on('end', () => {
+            body = JSON.parse(body);
+            if(body.success !== undefined && !body.success) {
+                return res.json({
+                    responseCode: 1,
+                    responseDesc: 'Failed captcha verification'
+                });
+            } else {
+                User.register(user, (err, status) => {
+                    if (err) return next(err);
+                    if (status === '[error] Email previously registered')
+                        res.redirect('/register');
+                    else { // Create account.
+                        User.create(user, (err, dbObj) => {
+                            if (err) {
+                                console.log('[register] create error: ' + err);
+                                return next(err);
+                            }
+                            else {
+                                User.authenticate(user, (err, dbObj) => {
+                                    if (err) {
+                                        console.log('[register] user.authenticate error: ' + err);
+                                        return next(err);
+                                    }
+                                    else if (user) {
+                                        req.session.user = {
+                                            id: dbObj.id,
+                                            email: dbObj.email
+                                        };
+                                        res.cookie('session', JSON.stringify({
+                                            user: req.session.user
+                                        }));
+                                        res.redirect('/');
+                                    } else {
+                                        res.redirect('/login');
+                                    }
+                                })
+                            }
+                        });
+                    }
+                });
+            }
+        });
     });
 }
 
 //-| logout |------------------------------|
 export function logout(req, res, next) {
-    delete req.session.user;
-    res.redirect('/home')
+    if (req.session.user) {
+        req.session.destroy(function (err) {
+            if (err) return next(err);
+            res.clearCookie('adultplay');
+            res.redirect('/');
+        });
+    } else {
+        res.clearCookie('adultplay');
+        res.redirect('/');
+    }
 }
 
 //-| authorize address to only registered users |--|
@@ -105,9 +152,9 @@ export function socketHandler(socket) {
     socket.on('login', data => {
 
         let user = {
-            username : data.username,
-            password : data.password,
-            ip : socket.request.connection.remoteAddress
+            username: data.username,
+            password: data.password,
+            ip: socket.request.connection.remoteAddress
         };
 
         User.authenticate(user, (err, dbUser) => {
@@ -166,11 +213,11 @@ export function socketHandler(socket) {
     socket.on('register', data => {
         console.log('on register has just ran');
         let user = {
-            username : data.username,
-            password : data.password,
-            email : data.email,
-            gender : data.gender,
-            ip : socket.request.connection.remoteAddress
+            username: data.username,
+            password: data.password,
+            email: data.email,
+            gender: data.gender,
+            ip: socket.request.connection.remoteAddress
         };
         User.register(user, (err, status) => {
             if (err) {
@@ -188,7 +235,7 @@ export function socketHandler(socket) {
                     socketid: socket.id.toString(),
                     session: socket.handshake.session
                 });
-            } else if(status === 'user already exists error') {
+            } else if (status === 'user already exists error') {
                 socket.emit('failure', {
                     api: 'register',
                     status: 'username exists',
@@ -240,51 +287,4 @@ export function socketHandler(socket) {
         });
     });
 
-    socket.on('get_avatar', data => {
-        User.getUsersAvatars(data.usernames, (err, result) => {
-            if (err) {
-                console.log('get_avatar err ' + err);
-                socket.emit('failure', {
-                    api: 'avatar',
-                    status: 'fetched avatars failed',
-                    avatars: result,
-                    socketid: socket.id.toString(),
-                    session: socket.handshake.session
-                });
-            } else {
-                socket.emit('success', {
-                    api: 'avatar',
-                    status: 'avatars fetched',
-                    avatars: result,
-                    socketid: socket.id.toString(),
-                    session: socket.handshake.session
-                });
-            }
-        });
-    });
-
-    socket.on('update_avatar', data => {
-        if (socket.handshake.session.user != null) {
-            if (socket.handshake.session.user.username === data.username) {
-                User.updateUserAvatar(data, (err, result) => {
-                    if (err) {
-                        console.log('update_avatar error: ' + err);
-                        socket.emit('failure', {
-                            api: 'avatar',
-                            status: 'failed to update avatar',
-                            socketid: socket.id.toString(),
-                            session: socket.handshake.session
-                        });
-                    } else {
-                        socket.emit('success', {
-                            api: 'avatar',
-                            status: 'updated avatar',
-                            socketid: socket.id.toString(),
-                            session: socket.handshake.session
-                        });
-                    }
-                });
-            }
-        }
-    });
 }

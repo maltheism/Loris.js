@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const defaultStyles = {
+const style = {
     root: {
         top: 0,
         bottom: 0,
@@ -16,7 +16,7 @@ const defaultStyles = {
     sidebar: {
         top: 0,
         bottom: 0,
-        zIndex: 2,
+        zIndex: 1,
         overflowY: 'auto',
     },
     content: {
@@ -45,10 +45,6 @@ class Sidebar extends Component {
         this.saveSidebarWidth();
     }
 
-    componentDidUpdate() {
-
-    }
-
     saveSidebarRef(node) {
         this.sidebar = node;
     }
@@ -63,11 +59,9 @@ class Sidebar extends Component {
     }
 
     render() {
-        const sidebarStyle = {...defaultStyles.sidebar, ...this.props.styles.sidebar};
-        const contentStyle = {...defaultStyles.content, ...this.props.styles.content};
+        const sidebarStyle = {...style.sidebar, ...this.props.styles.sidebar};
         const rootProps = {
-            className: this.props.rootClassName,
-            style: {...defaultStyles.root, ...this.props.styles.root},
+            style: {...style.root, ...this.props.styles.root},
             role: 'navigation',
         };
 
@@ -80,21 +74,15 @@ class Sidebar extends Component {
 
         return (
             <div {...rootProps}>
-                <div className={this.props.sidebarClassName} style={sidebarStyle} ref={this.saveSidebarRef}>
-                    {this.props.sidebar}
-                </div>
-                <div className={this.props.contentClassName} style={contentStyle}>
-                    {this.props.children}
+                <div style={sidebarStyle} ref={this.saveSidebarRef}>
+                    {this.props.content}
                 </div>
             </div>
         );
     }
-};
+}
 
 Sidebar.propTypes = {
-    // main content to render
-    children: PropTypes.node,
-
     // styles
     styles: PropTypes.shape({
         root: PropTypes.object,
@@ -102,17 +90,8 @@ Sidebar.propTypes = {
         content: PropTypes.object,
     }),
 
-    // root component optional class
-    rootClassName: PropTypes.string,
-
-    // sidebar optional class
-    sidebarClassName: PropTypes.string,
-
-    // content optional class
-    contentClassName: PropTypes.string,
-
     // sidebar content to render
-    sidebar: PropTypes.node.isRequired,
+    content: PropTypes.node.isRequired,
 
     // Place the sidebar on the right
     pullRight: PropTypes.bool,

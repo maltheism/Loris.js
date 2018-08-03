@@ -5,6 +5,8 @@
 
 'use strict';
 
+const mongoose = require('mongoose');
+
 const Schema_User = mongoose.Schema({
     username: String,
     gender: String,

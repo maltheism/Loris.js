@@ -29,21 +29,18 @@ class App extends Component {
     };
 
     render() {
-        const sidebar = <SidebarContent />;
-
-        const sidebarProps = {
-            sidebar: sidebar,
-            open: this.state.open,
-            docked: this.state.docked,
-            onSetOpen: this.onSetOpen,
-        };
+        const sidebar_content = <SidebarContent />;
 
         return (
             <div className='App'>
                 <header className='App-header'>
                     <h1 className='App-title'>Welcome to Loris</h1>
                 </header>
-                <Sidebar {...sidebarProps}></Sidebar>
+                <Sidebar
+                    content={sidebar_content}
+                    open={true}
+                    docked={true}>
+                </Sidebar>
                 <div style={{
                     width: '100%',
                     color: 'white',
