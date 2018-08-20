@@ -51,18 +51,18 @@ class App extends Component {
     };
 
     componentDidUpdate(prevProps, prevState) {
-        let elems = document.querySelectorAll('.dropdown-trigger');
-        window.M.Dropdown.init(elems, {hover: true, coverTrigger: false,});
+        let dropdowns = document.querySelectorAll('.dropdown-trigger');
+        window.M.Dropdown.init(dropdowns, {hover: true, coverTrigger: false,});
 
-        let sidenavs = document.querySelectorAll('.sidenav');
-        window.M.Sidenav.init(sidenavs, {edge: 'right',});
+        let sideNavs = document.querySelectorAll('.sidenav');
+        window.M.Sidenav.init(sideNavs, {edge: 'right',});
 
         let tooltips = document.querySelectorAll('.tooltipped');
         window.M.Tooltip.init(tooltips, {});
 
         //collapsible-body
-        let collasible = document.querySelectorAll('.collapsible');
-        window.M.Collapsible.init(collasible, {});
+        let collapsible = document.querySelectorAll('.collapsible');
+        window.M.Collapsible.init(collapsible, {});
     }
 
     render() {
@@ -134,6 +134,17 @@ class App extends Component {
                     text: {
                         color: '#fff'
                     }
+                },
+            },
+            sidebar: {
+                container: {
+                    zIndex: -1,
+                    width: '85px',
+                    position: 'fixed',
+                    minHeight: '100%',
+                    overflow: 'hidden',
+                    background: 'white',
+                    boxShadow: '10px -10px 10px -10px rgba(66,66,66,0.3)'
                 }
             }
         };
@@ -144,9 +155,9 @@ class App extends Component {
                     <nav className='nav-extended'>
                         <div className='nav-wrapper' style={{background: '#042d54'}}>
                             <div className='left' style={style.menu.separator.left}>
-                                <div style={{height: '100%', paddingLeft: '15px'}}>
-                                    <a className='btn-floating btn-large waves-effect waves-dark' style={{padding: 0, backgroundColor: 'rgb(108,129,153)'}}>
-                                        <i className="material-icons" style={{color: '#042d54'}}>add</i>
+                                <div style={{height: '100%', paddingLeft: '22px'}}>
+                                    <a className='btn-floating btn-medium waves-effect waves-dark' style={{padding: 0, backgroundColor: 'rgb(108,129,153)'}}>
+                                        <i className="material-icons" style={{color: '#042d54', height: '40px', lineHeight: '40px'}}>add</i>
                                     </a>
                                 </div>
                                 <div style={style.menu.logo.container}>
@@ -282,8 +293,8 @@ class App extends Component {
                         <li className='divider'/>
                         <li><a style={style.menu.dropdown.text}>Log Out</a></li>
                     </ul>
-                    <div id='app-sidebar' style={{position: 'fixed', background: 'white', minHeight: '100%', width: '85px', overflow: 'hidden', zIndex: -1}}>
-                        hello
+                    <div id='app-sidebar' style={style.sidebar.container}>
+                        sidebarX
                     </div>
                 </div>
                 <div id='mobile_container'>
