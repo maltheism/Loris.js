@@ -9,6 +9,7 @@ const Page = styled.div`
     position: relative;
     width: calc(100vw - 85px);
     min-height: calc(100vh);
+    z-index: -1;
     
     @media (min-width: 0px) {
         padding-top: 64px;      
@@ -139,7 +140,7 @@ class App extends Component {
 
         return (
             <div className='App'>
-                <div id='navbar-fixed' style={{position: 'fixed', top: 0, right: 0, left: 0,}}>
+                <div id='navbar-fixed' style={{position: 'fixed', top: 0, right: 0, left: 0}}>
                     <nav className='nav-extended'>
                         <div className='nav-wrapper' style={{background: '#042d54'}}>
                             <div className='left' style={style.menu.separator.left}>
