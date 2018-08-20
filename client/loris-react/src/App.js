@@ -52,17 +52,17 @@ class App extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         let elems = document.querySelectorAll('.dropdown-trigger');
-        let instances = window.M.Dropdown.init(elems, {hover: true, coverTrigger: false,});
+        window.M.Dropdown.init(elems, {hover: true, coverTrigger: false,});
 
         let sidenavs = document.querySelectorAll('.sidenav');
-        instances = window.M.Sidenav.init(sidenavs, {edge: 'right',});
+        window.M.Sidenav.init(sidenavs, {edge: 'right',});
 
         let tooltips = document.querySelectorAll('.tooltipped');
-        instances = window.M.Tooltip.init(tooltips, {});
+        window.M.Tooltip.init(tooltips, {});
 
         //collapsible-body
         let collasible = document.querySelectorAll('.collapsible');
-        instances = window.M.Collapsible.init(collasible, {});
+        window.M.Collapsible.init(collasible, {});
     }
 
     render() {
@@ -150,7 +150,7 @@ class App extends Component {
                                     </a>
                                 </div>
                                 <div style={style.menu.logo.container}>
-                                    <a href='#' style={style.menu.logo.text}>
+                                    <a style={style.menu.logo.text}>
                                         Loris
                                     </a>
                                 </div>
@@ -196,7 +196,7 @@ class App extends Component {
                                 <div style={{marginLeft: 'auto', flexGrow: 1}}>
                                     <ul id='nav-mobile' className='right hide-on-small'>
                                         <li style={style.menu.navigation.main.container}>
-                                            <a href='#!' style={{fontSize:'1.5rem'}}>
+                                            <a style={{fontSize:'1.5rem'}}>
                                                 ?
                                             </a>
                                         </li>
@@ -216,71 +216,71 @@ class App extends Component {
                         </div>
                     </nav>
                     <ul id='candidate_dropdown' className='dropdown-content' style={{background: '#042d54', minWidth: '200px'}}>
-                        <li><a href='#!' style={style.menu.dropdown.text}>New Profile</a></li>
+                        <li><a style={style.menu.dropdown.text}>New Profile</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Access Profile</a></li>
+                        <li><a style={style.menu.dropdown.text}>Access Profile</a></li>
                     </ul>
                     <ul id='clinical_dropdown' className='dropdown-content' style={{background: '#042d54', minWidth: '200px'}}>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Reliability</a></li>
+                        <li><a style={style.menu.dropdown.text}>Reliability</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Conflict Resolver</a></li>
+                        <li><a style={style.menu.dropdown.text}>Conflict Resolver</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Examiner</a></li>
+                        <li><a style={style.menu.dropdown.text}>Examiner</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Training</a></li>
+                        <li><a style={style.menu.dropdown.text}>Training</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Media</a></li>
+                        <li><a style={style.menu.dropdown.text}>Media</a></li>
                     </ul>
                     <ul id='imaging_dropdown' className='dropdown-content' style={{background: '#042d54', minWidth: '200px'}}>
-                        <li><a href='#!' style={style.menu.dropdown.text}>DICOM Archive</a></li>
+                        <li><a style={style.menu.dropdown.text}>DICOM Archive</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Imaging Browser</a></li>
+                        <li><a style={style.menu.dropdown.text}>Imaging Browser</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>MRI Violated Scans</a></li>
+                        <li><a style={style.menu.dropdown.text}>MRI Violated Scans</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Imaging Uploader</a></li>
+                        <li><a style={style.menu.dropdown.text}>Imaging Uploader</a></li>
                     </ul>
                     <ul id='reports_dropdown' className='dropdown-content' style={{background: '#042d54', minWidth: '200px'}}>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Statistics</a></li>
+                        <li><a style={style.menu.dropdown.text}>Statistics</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Data Query Tool</a></li>
+                        <li><a style={style.menu.dropdown.text}>Data Query Tool</a></li>
                     </ul>
                     <ul id='tools_dropdown' className='dropdown-content' style={{background: '#042d54', minWidth: '200px'}}>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Data Dictionary</a></li>
+                        <li><a style={style.menu.dropdown.text}>Data Dictionary</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Document Repository</a></li>
+                        <li><a style={style.menu.dropdown.text}>Document Repository</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Data Integrity Flag</a></li>
+                        <li><a style={style.menu.dropdown.text}>Data Integrity Flag</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Data Team Helper</a></li>
+                        <li><a style={style.menu.dropdown.text}>Data Team Helper</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Instrument Builder</a></li>
+                        <li><a style={style.menu.dropdown.text}>Instrument Builder</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Genomic Browser</a></li>
+                        <li><a style={style.menu.dropdown.text}>Genomic Browser</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Data Release</a></li>
+                        <li><a style={style.menu.dropdown.text}>Data Release</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Acknowledgements</a></li>
+                        <li><a style={style.menu.dropdown.text}>Acknowledgements</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Issue Tracker</a></li>
+                        <li><a style={style.menu.dropdown.text}>Issue Tracker</a></li>
                     </ul>
                     <ul id='admin_dropdown' className='dropdown-content' style={{background: '#042d54', minWidth: '200px'}}>
-                        <li><a href='#!' style={style.menu.dropdown.text}>User Accounts</a></li>
+                        <li><a style={style.menu.dropdown.text}>User Accounts</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Survey Module</a></li>
+                        <li><a style={style.menu.dropdown.text}>Survey Module</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Help Editor</a></li>
+                        <li><a style={style.menu.dropdown.text}>Help Editor</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Instrument Manager</a></li>
+                        <li><a style={style.menu.dropdown.text}>Instrument Manager</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Configuration</a></li>
+                        <li><a style={style.menu.dropdown.text}>Configuration</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Server Processes Manager</a></li>
+                        <li><a style={style.menu.dropdown.text}>Server Processes Manager</a></li>
                     </ul>
                     <ul id='account_dropdown' className='dropdown-content' style={{background: '#042d54', minWidth: '150px'}}>
-                        <li><a href='#!' style={style.menu.dropdown.text}>My Preferences</a></li>
+                        <li><a style={style.menu.dropdown.text}>My Preferences</a></li>
                         <li className='divider'/>
-                        <li><a href='#!' style={style.menu.dropdown.text}>Log Out</a></li>
+                        <li><a style={style.menu.dropdown.text}>Log Out</a></li>
                     </ul>
                     <div id='app-sidebar' style={{position: 'fixed', background: 'white', minHeight: '100%', width: '85px', overflow: 'hidden', zIndex: -1}}>
                         hello
@@ -296,8 +296,8 @@ class App extends Component {
                                     </a>
                                     <div className='collapsible-body'>
                                         <ul>
-                                            <li><a href='#!'>New Profile</a></li>
-                                            <li><a href='#!'>Access Profile</a></li>
+                                            <li><a>New Profile</a></li>
+                                            <li><a>Access Profile</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -311,11 +311,11 @@ class App extends Component {
                                     </a>
                                     <div className='collapsible-body'>
                                         <ul>
-                                            <li><a href='#!'>Reliability</a></li>
-                                            <li><a href='#!'>Conflict Resolver</a></li>
-                                            <li><a href='#!'>Examiner</a></li>
-                                            <li><a href='#!'>Training</a></li>
-                                            <li><a href='#!'>Media</a></li>
+                                            <li><a>Reliability</a></li>
+                                            <li><a>Conflict Resolver</a></li>
+                                            <li><a>Examiner</a></li>
+                                            <li><a>Training</a></li>
+                                            <li><a>Media</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -329,10 +329,10 @@ class App extends Component {
                                     </a>
                                     <div className='collapsible-body'>
                                         <ul>
-                                            <li><a href='#!'>DICOM Archive</a></li>
-                                            <li><a href='#!'>Imaging Browser</a></li>
-                                            <li><a href='#!'>MRI Violated Scans</a></li>
-                                            <li><a href='#!'>Imaging Uploader</a></li>
+                                            <li><a>DICOM Archive</a></li>
+                                            <li><a>Imaging Browser</a></li>
+                                            <li><a>MRI Violated Scans</a></li>
+                                            <li><a>Imaging Uploader</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -346,8 +346,8 @@ class App extends Component {
                                     </a>
                                     <div className='collapsible-body'>
                                         <ul>
-                                            <li><a href='#!'>Statistics</a></li>
-                                            <li><a href='#!'>Data Query Tool</a></li>
+                                            <li><a>Statistics</a></li>
+                                            <li><a>Data Query Tool</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -361,15 +361,15 @@ class App extends Component {
                                     </a>
                                     <div className='collapsible-body'>
                                         <ul>
-                                            <li><a href='#!'>Data Dictionary</a></li>
-                                            <li><a href='#!'>Document Repository</a></li>
-                                            <li><a href='#!'>Data Integrity Flag</a></li>
-                                            <li><a href='#!'>Data Team Helper</a></li>
-                                            <li><a href='#!'>Instrument Builder</a></li>
-                                            <li><a href='#!'>Genomic Browser</a></li>
-                                            <li><a href='#!'>Data Release</a></li>
-                                            <li><a href='#!'>Acknowledgements</a></li>
-                                            <li><a href='#!'>Issue Tracker</a></li>
+                                            <li><a>Data Dictionary</a></li>
+                                            <li><a>Document Repository</a></li>
+                                            <li><a>Data Integrity Flag</a></li>
+                                            <li><a>Data Team Helper</a></li>
+                                            <li><a>Instrument Builder</a></li>
+                                            <li><a>Genomic Browser</a></li>
+                                            <li><a>Data Release</a></li>
+                                            <li><a>Acknowledgements</a></li>
+                                            <li><a>Issue Tracker</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -383,12 +383,12 @@ class App extends Component {
                                     </a>
                                     <div className='collapsible-body'>
                                         <ul>
-                                            <li><a href='#!'>User Accounts</a></li>
-                                            <li><a href='#!'>Survey Module</a></li>
-                                            <li><a href='#!'>Help Editor</a></li>
-                                            <li><a href='#!'>Instrument Manager</a></li>
-                                            <li><a href='#!'>Configuration</a></li>
-                                            <li><a href='#!'>Server Processes Manager</a></li>
+                                            <li><a>User Accounts</a></li>
+                                            <li><a>Survey Module</a></li>
+                                            <li><a>Help Editor</a></li>
+                                            <li><a>Instrument Manager</a></li>
+                                            <li><a>Configuration</a></li>
+                                            <li><a>Server Processes Manager</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -411,8 +411,8 @@ class App extends Component {
                                     </a>
                                     <div className='collapsible-body'>
                                         <ul>
-                                            <li><a href='#!'>My Preferences</a></li>
-                                            <li><a href='#!'>Log Out</a></li>
+                                            <li><a>My Preferences</a></li>
+                                            <li><a>Log Out</a></li>
                                         </ul>
                                     </div>
                                 </li>
