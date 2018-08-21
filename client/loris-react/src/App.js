@@ -78,6 +78,10 @@ class App extends Component {
         let element_fifth = document.getElementById('sidebar_element_fifth');
         let icon_fifth = document.getElementById('sidebar_element_icon_fifth');
         let sidebar = document.getElementById('app_sidebar');
+
+        let sidebar_footer = document.getElementById('app_sidebar_footer');
+        sidebar_footer.style.transition = 'opacity 0.5s linear 0s';
+
         sidebar.style.transition = 'width 0.1s linear 0s';
         element_first.style.transition =
             element_second.style.transition =
@@ -106,6 +110,9 @@ class App extends Component {
         element_third.style.width = '155px';
         element_fourth.style.width = '165px';
 
+        sidebar_footer.style.display = 'block';
+        sidebar_footer.style.opacity = '1';
+
         element_first.innerHTML = icon_first.outerHTML + 'User';
         element_second.innerHTML = icon_second.outerHTML + 'Favorites';
         element_third.innerHTML = icon_third.outerHTML + 'History';
@@ -125,7 +132,11 @@ class App extends Component {
         let element_fifth = document.getElementById('sidebar_element_fifth');
         let icon_fifth = document.getElementById('sidebar_element_icon_fifth');
         let sidebar = document.getElementById('app_sidebar');
-        sidebar.style.transition = 'width 0.1s linear 0s';
+
+        let sidebar_footer = document.getElementById('app_sidebar_footer');
+        sidebar_footer.style.transition = 'opacity 0.1s linear 0s';
+
+
         element_first.style.transition =
             element_second.style.transition =
                 element_third.style.transition =
@@ -152,6 +163,10 @@ class App extends Component {
                 element_third.style.width =
                     element_fourth.style.width =
                         element_fifth.style.width = '56px';
+
+        sidebar_footer.style.opacity = '0';
+        sidebar_footer.style.display = 'none';
+
         element_first.innerHTML = icon_first.outerHTML;
         element_second.innerHTML = icon_second.outerHTML;
         element_third.innerHTML = icon_third.outerHTML;
@@ -466,6 +481,9 @@ class App extends Component {
                             <a id='sidebar_element_fifth' className='btn-floating left btn-large waves-effect waves-dark' style={{padding: 0, backgroundColor: '#697b99', borderRadius: '5px'}}>
                                 <i id='sidebar_element_icon_fifth' className='material-icons' style={{color: '#003554', height: '56px', lineHeight: '56px', fontSize: '1.9rem'}}>school</i>
                             </a>
+                        </div>
+                        <div id='app_sidebar_footer' style={{display: 'none', opacity: 0, height: '40px', lineHeight: '40px', marginTop: 'auto', marginBottom: '64px', cursor: 'pointer', color: '#2E2C2F', background: 'linear-gradient(#FDFDFD, #E6E6E6)', borderTop: 'solid 1px #EDEDED'}}>
+                            Settings
                         </div>
                     </Sidebar>
                 </div>
