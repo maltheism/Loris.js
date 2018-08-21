@@ -25,12 +25,31 @@ const Page = styled.div`
     
 `;
 
+const Sidebar = styled.div`
+
+    z-index: -1;
+    width: 85px;
+    display: flex;
+    position: fixed;
+    min-height: 100%;
+    overflow: hidden;
+    background: white;
+    transition: width 1s;
+    -webkit-transition: width 1s;
+    box-shadow: 10px -10px 10px -10px rgba(66,66,66,0.3);
+    flex-direction: column;
+    flex-wrap: wrap;
+    
+    // &:hover {
+    //     width: 400px;
+    // }
+    
+`;
+
 class App extends Component {
     state = {
         response: '',
-        docked: true,
         open: true,
-        pullRight: false,
     };
 
     componentDidMount() {
@@ -39,6 +58,120 @@ class App extends Component {
             .catch(err => console.log(err));
 
     }
+
+    sidebarHover() {
+        console.log('okay');
+        let element_first = document.getElementById('sidebar_element_first');
+        let icon_first = document.getElementById('sidebar_element_icon_first');
+        let element_second = document.getElementById('sidebar_element_second');
+        let icon_second = document.getElementById('sidebar_element_icon_second');
+        let element_third = document.getElementById('sidebar_element_third');
+        let icon_third = document.getElementById('sidebar_element_icon_third');
+        let element_fourth = document.getElementById('sidebar_element_fourth');
+        let icon_fourth = document.getElementById('sidebar_element_icon_fourth');
+        let element_fifth = document.getElementById('sidebar_element_fifth');
+        let icon_fifth = document.getElementById('sidebar_element_icon_fifth');
+        let sidebar = document.getElementById('app_sidebar');
+        sidebar.style.transition = 'width 0.1s linear 0s';
+        element_first.style.transition =
+            element_second.style.transition =
+                element_third.style.transition =
+                    element_fourth.style.transition =
+                        element_fifth.style.transition = 'width 0.1s linear 0s';
+        sidebar.style.width = '200px';
+        icon_first.style.width =
+            icon_second.style.width =
+                icon_third.style.width =
+                    icon_fourth.style.width =
+                        icon_fifth.style.width = '56px';
+        icon_first.style.cssFloat =
+            icon_second.style.cssFloat =
+                icon_third.style.cssFloat =
+                    icon_fourth.style.cssFloat =
+                        icon_fifth.style.cssFloat = 'left';
+        element_first.style.borderRadius =
+            element_second.style.borderRadius =
+                element_third.style.borderRadius =
+                    element_fourth.style.borderRadius =
+                        element_fifth.style.borderRadius = '15px 56px 56px 15px';
+        element_first.style.width =
+            element_fifth.style.width = '130px';
+        element_second.style.width = '172px';
+        element_third.style.width = '155px';
+        element_fourth.style.width = '165px';
+
+        element_first.innerHTML = icon_first.outerHTML + 'User';
+        element_second.innerHTML = icon_second.outerHTML + 'Favorites';
+        element_third.innerHTML = icon_third.outerHTML + 'History';
+        element_fourth.innerHTML = icon_fourth.outerHTML + 'Feedback';
+        element_fifth.innerHTML = icon_fifth.outerHTML + 'Guide';
+    }
+
+    sidebarHoverLeave() {
+        console.log('omg');
+        let element_first = document.getElementById('sidebar_element_first');
+        let icon_first = document.getElementById('sidebar_element_icon_first');
+        let element_second = document.getElementById('sidebar_element_second');
+        let icon_second = document.getElementById('sidebar_element_icon_second');
+        let element_third = document.getElementById('sidebar_element_third');
+        let icon_third = document.getElementById('sidebar_element_icon_third');
+        let element_fourth = document.getElementById('sidebar_element_fourth');
+        let icon_fourth = document.getElementById('sidebar_element_icon_fourth');
+        let element_fifth = document.getElementById('sidebar_element_fifth');
+        let icon_fifth = document.getElementById('sidebar_element_icon_fifth');
+        let sidebar = document.getElementById('app_sidebar');
+        sidebar.style.transition = 'width 0.1s linear 0s';
+        element_first.style.transition =
+            element_second.style.transition =
+                element_third.style.transition =
+                    element_fourth.style.transition =
+                        element_fifth.style.transition = 'width 0.1s linear 0s';
+        sidebar.style.width = '85px';
+        icon_first.style.width =
+            icon_second.style.width =
+                icon_third.style.width =
+                    icon_fourth.style.width =
+                        icon_fifth.style.width = '56px';
+        icon_first.style.cssFloat =
+            icon_second.style.cssFloat =
+                icon_third.style.cssFloat =
+                    icon_fourth.style.cssFloat =
+                        icon_fifth.style.cssFloat = 'left';
+        element_first.style.borderRadius =
+            element_second.style.borderRadius =
+                element_third.style.borderRadius =
+                    element_fourth.style.borderRadius =
+                        element_fifth.style.borderRadius = '5px';
+        element_first.style.width =
+            element_second.style.width =
+                element_third.style.width =
+                    element_fourth.style.width =
+                        element_fifth.style.width = '56px';
+        element_first.innerHTML = icon_first.outerHTML;
+        element_second.innerHTML = icon_second.outerHTML;
+        element_third.innerHTML = icon_third.outerHTML;
+        element_fourth.innerHTML = icon_fourth.outerHTML;
+        element_fifth.innerHTML = icon_fifth.outerHTML;
+    }
+
+    sidebar() {
+        let page = document.getElementById('page');
+        let sidebar = document.getElementById('app_sidebar');
+        let icon = document.getElementById('sidebar_icon');
+        this.setState({open: !this.state.open}, () => {
+            if (this.state.open) {
+                icon.innerHTML = 'remove';
+                sidebar.style.display = 'flex';
+                page.style.marginLeft = '85px';
+                page.style.width = 'calc(100vw - 85px)';
+            } else {
+                icon.innerHTML = 'favorite';
+                sidebar.style.display = 'none';
+                page.style.marginLeft = '0';
+                page.style.width = 'calc(100vw)';
+            }
+        });
+    };
 
     callApi = async () => {
         const response = await fetch('/api/hello');
@@ -63,6 +196,8 @@ class App extends Component {
         //collapsible-body
         let collapsible = document.querySelectorAll('.collapsible');
         window.M.Collapsible.init(collapsible, {});
+
+
     }
 
     render() {
@@ -74,7 +209,10 @@ class App extends Component {
                         display: 'flex'
                     },
                     right: {
-                        display: 'flex', flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap'
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        flexDirection: 'row',
+                        alignItems: 'flex-start'
                     }
                 },
                 logo: {
@@ -156,8 +294,8 @@ class App extends Component {
                         <div className='nav-wrapper' style={{background: '#042d54'}}>
                             <div className='left' style={style.menu.separator.left}>
                                 <div style={{height: '100%', paddingLeft: '22px'}}>
-                                    <a className='btn-floating btn-medium waves-effect waves-dark' style={{padding: 0, backgroundColor: 'rgb(108,129,153)'}}>
-                                        <i className="material-icons" style={{color: '#042d54', height: '40px', lineHeight: '40px'}}>add</i>
+                                    <a className='btn-floating btn-medium waves-effect waves-dark' style={{padding: 0, backgroundColor: '#6c8199'}} onClick={this.sidebar.bind(this)}>
+                                        <i id='sidebar_icon' className='material-icons' style={{color: '#042d54', height: '40px', lineHeight: '40px'}}>remove</i>
                                     </a>
                                 </div>
                                 <div style={style.menu.logo.container}>
@@ -293,9 +431,33 @@ class App extends Component {
                         <li className='divider'/>
                         <li><a style={style.menu.dropdown.text}>Log Out</a></li>
                     </ul>
-                    <div id='app-sidebar' style={style.sidebar.container}>
-                        sidebarX
-                    </div>
+                    <Sidebar id='app_sidebar' onMouseEnter={this.sidebarHover.bind(this)} onMouseLeave={this.sidebarHoverLeave.bind(this)}>
+                        <div style={{paddingTop: '20px', paddingLeft: '14px'}}>
+                            <a id='sidebar_element_first' className='btn-floating left btn-large waves-effect waves-dark' style={{padding: 0, backgroundColor: '#995768', borderRadius: '5px'}}>
+                                <i id='sidebar_element_icon_first' className='material-icons' style={{color: '#540129', height: '56px', lineHeight: '56px', fontSize: '1.9rem'}}>person</i>
+                            </a>
+                        </div>
+                        <div style={{paddingTop: '20px', paddingLeft: '14px'}}>
+                            <a id='sidebar_element_second' className='btn-floating left btn-large waves-effect waves-dark' style={{padding: 0, backgroundColor: '#b394b9', borderRadius: '5px'}}>
+                                <i id='sidebar_element_icon_second' className='material-icons' style={{color: '#694a91', height: '56px', lineHeight: '56px'}}>star</i>
+                            </a>
+                        </div>
+                        <div style={{paddingTop: '20px', paddingLeft: '14px',}}>
+                            <a id='sidebar_element_third' className='btn-floating left btn-large waves-effect waves-dark' style={{padding: 0, backgroundColor: '#5b9986', borderRadius: '5px'}}>
+                                <i id='sidebar_element_icon_third' className='material-icons' style={{color: '#005454', height: '56px', lineHeight: '56px', fontSize: '1.9rem'}}>access_time</i>
+                            </a>
+                        </div>
+                        <div style={{paddingTop: '20px', paddingLeft: '14px',}}>
+                            <a id='sidebar_element_fourth' className='btn-floating left btn-large waves-effect waves-dark' style={{padding: 0, backgroundColor: '#99984c', borderRadius: '5px'}}>
+                                <i id='sidebar_element_icon_fourth' className='material-icons' style={{color: '#544e00', height: '56px', lineHeight: '56px', fontSize: '1.9rem'}}>sentiment_very_satisfied</i>
+                            </a>
+                        </div>
+                        <div style={{paddingTop: '20px', paddingLeft: '14px',}}>
+                            <a id='sidebar_element_fifth' className='btn-floating left btn-large waves-effect waves-dark' style={{padding: 0, backgroundColor: '#697b99', borderRadius: '5px'}}>
+                                <i id='sidebar_element_icon_fifth' className='material-icons' style={{color: '#003554', height: '56px', lineHeight: '56px', fontSize: '1.9rem'}}>school</i>
+                            </a>
+                        </div>
+                    </Sidebar>
                 </div>
                 <div id='mobile_container'>
                     <ul id='mobile_sidenav' className='sidenav' style={{position: 'fixed', background: '#042d54', zIndex: 998}}>
@@ -432,7 +594,7 @@ class App extends Component {
                     </ul>
                 </div>
 
-                <Page>
+                <Page id='page'>
                     <div>
                         <p className='App-intro'>
                             {this.state.response}
