@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import './App.css';
 
 const Page = styled.div`
-
     overflow: auto;
     margin-left: 85px;
     position: relative;
     width: calc(100vw - 85px);
-    min-height: calc(100vh);
+    min-height: 100vh;
     z-index: -1;
+    flex: 1 0 auto;
     
     @media (min-width: 0px) {
         padding-top: 64px;      
@@ -22,7 +22,13 @@ const Page = styled.div`
     @media (min-width: 898px) {
         padding-top: 64px;
     }
-    
+`;
+
+const Footer = styled.div`
+    overflow: auto;
+    margin-left: 85px;
+    width: calc(100vw - 85px);
+    z-index: -1;
 `;
 
 const Sidebar = styled.div`
@@ -40,10 +46,6 @@ const Sidebar = styled.div`
     flex-direction: column;
     flex-wrap: wrap;
     
-    // &:hover {
-    //     width: 400px;
-    // }
-    
 `;
 
 class App extends Component {
@@ -52,15 +54,19 @@ class App extends Component {
         open: true,
     };
 
+    componentWillMount() {
+        document.body.style.display = 'flex';
+        document.body.style.minHeight = '100vh';
+        document.body.style.flexDirection = 'column';
+    }
+
     componentDidMount() {
         this.callApi()
             .then(res => this.setState({ response: res.express }))
             .catch(err => console.log(err));
-
     }
 
     sidebarHover() {
-        console.log('okay');
         let element_first = document.getElementById('sidebar_element_first');
         let icon_first = document.getElementById('sidebar_element_icon_first');
         let element_second = document.getElementById('sidebar_element_second');
@@ -108,7 +114,6 @@ class App extends Component {
     }
 
     sidebarHoverLeave() {
-        console.log('omg');
         let element_first = document.getElementById('sidebar_element_first');
         let icon_first = document.getElementById('sidebar_element_icon_first');
         let element_second = document.getElementById('sidebar_element_second');
@@ -156,19 +161,24 @@ class App extends Component {
 
     sidebar() {
         let page = document.getElementById('page');
+        let footer = document.getElementById('footer');
         let sidebar = document.getElementById('app_sidebar');
         let icon = document.getElementById('sidebar_icon');
         this.setState({open: !this.state.open}, () => {
             if (this.state.open) {
                 icon.innerHTML = 'remove';
                 sidebar.style.display = 'flex';
-                page.style.marginLeft = '85px';
-                page.style.width = 'calc(100vw - 85px)';
+                page.style.marginLeft =
+                    footer.style.marginLeft = '85px';
+                page.style.width =
+                    footer.style.width = 'calc(100vw - 85px)';
             } else {
                 icon.innerHTML = 'favorite';
                 sidebar.style.display = 'none';
-                page.style.marginLeft = '0';
-                page.style.width = 'calc(100vw)';
+                page.style.marginLeft =
+                    footer.style.marginLeft = '0';
+                page.style.width =
+                    footer.style.width = 'calc(100vw)';
             }
         });
     };
@@ -600,35 +610,55 @@ class App extends Component {
                             {this.state.response}
                         </p>
 
-                        {/*<table className='centered highlight' style={{display: 'table', width: '100%'}}>*/}
-                            {/*<thead>*/}
-                            {/*<tr style={{background: '#042d54', color: '#fff'}}>*/}
-                                {/*<th style={{borderRadius: 0}}>Name</th>*/}
-                                {/*<th style={{borderRadius: 0}}>Item Name</th>*/}
-                                {/*<th style={{borderRadius: 0}}>Item Price</th>*/}
-                            {/*</tr>*/}
-                            {/*</thead>*/}
+                        <div className={'container'}>
+                            <table className='centered highlight' style={{display: 'table', width: '100%'}}>
+                                <thead>
+                                    <tr style={{background: '#042d54', color: '#fff'}}>
+                                        <th style={{borderRadius: 0}}>Name</th>
+                                        <th style={{borderRadius: 0}}>Purchased</th>
+                                        <th style={{borderRadius: 0}}>Price</th>
+                                    </tr>
+                                </thead>
 
-                            {/*<tbody>*/}
-                            {/*<tr>*/}
-                                {/*<td>The base of the “fire tornado” was 1,000 feet wide — larger than three football fields — and was fueled by winds gusting to 165 mph, according to the Cal Fire report. It exploded 7.5 miles into the air, ripping roofs off homes and toppling power lines.</td>*/}
-                                {/*<td>Eclair</td>*/}
-                                {/*<td>$0.87</td>*/}
-                            {/*</tr>*/}
-                            {/*<tr>*/}
-                                {/*<td>Alan</td>*/}
-                                {/*<td>Jellybean</td>*/}
-                                {/*<td>$3.76</td>*/}
-                            {/*</tr>*/}
-                            {/*<tr>*/}
-                                {/*<td>Jonathan</td>*/}
-                                {/*<td>Lollipop</td>*/}
-                                {/*<td>$7.00</td>*/}
-                            {/*</tr>*/}
-                            {/*</tbody>*/}
-                        {/*</table>*/}
+                                <tbody>
+                                    <tr>
+                                        <td>Alice</td>
+                                        <td>Jellybeans</td>
+                                        <td>$4.20</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bob</td>
+                                        <td>Chocolate</td>
+                                        <td>$6.66</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alizée</td>
+                                        <td>Lollipop</td>
+                                        <td>$2.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </Page>
+                <Footer id={'footer'}>
+                    <footer className='page-footer' style={{background: '#042D54'}}>
+                        <div className='container'>
+                            | <a href='http://www.loris.ca/'>Loris Website</a> | <a href='https://github.com/aces/Loris'>GitHub</a> |
+                        </div>
+                        <div className='footer-copyright'>
+                            <div className='container'>
+                                <div className='col s12'>
+                                    Powered by LORIS © 2018. All rights reserved.
+                                </div>
+                                <div className='col s12'>
+                                    Created by <a href='http://mcin-cnim.ca/'>MCIN</a>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </Footer>
             </div>
         );
     }

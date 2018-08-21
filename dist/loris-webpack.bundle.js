@@ -109,7 +109,7 @@ var _http2 = _interopRequireDefault(_http);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var debug = __webpack_require__(31)('loris:server');
+var debug = __webpack_require__(26)('loris:server');
 
 
 /**
@@ -346,7 +346,7 @@ io.on('connection', function (socket) {
      *   'client_ready' 'client_error'
      */
 
-    var user = __webpack_require__(25);
+    var user = __webpack_require__(22);
     user.socketHandler(socket);
     /* socketHandler [events] list.
      *   'login'
@@ -419,11 +419,11 @@ var router = _express2.default.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.send({ express: 'Hello From Express' });
+    res.send({ express: 'Hi from Express' });
 });
 
 router.get('/api/hello', function (req, res) {
-    res.send({ express: 'Hello hi From Express' });
+    res.send({ express: 'Hello from Express' });
 });
 
 module.exports = router;
@@ -488,9 +488,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.socketHandler = socketHandler;
 
-var _client_model = __webpack_require__(16);
+var _model = __webpack_require__(16);
 
-var Client = _interopRequireWildcard(_client_model);
+var Client = _interopRequireWildcard(_model);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -686,7 +686,7 @@ function updateSocketID(socket, cb) {
  * @param cb
  */
 function registerSocket(data, cb) {
-    var uuid = __webpack_require__(24);
+    var uuid = __webpack_require__(21);
     data.uuid = data.uuid ? data.uuid : uuid.v4();
 
     /**
@@ -749,7 +749,7 @@ function registerSocket(data, cb) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.PublicKeys = exports.Forges = exports.Clients = exports.User = exports.Market = undefined;
+exports.Clients = exports.User = undefined;
 
 var _config = __webpack_require__(1);
 
@@ -757,15 +757,11 @@ var _config2 = _interopRequireDefault(_config);
 
 var _client = __webpack_require__(18);
 
-var _user = __webpack_require__(19);
-
-var _market = __webpack_require__(20);
+var _user = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mongoose = __webpack_require__(21),
-    paginate = __webpack_require__(22),
-    AutoIncrement = __webpack_require__(23)(mongoose);
+var mongoose = __webpack_require__(19);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(_config2.default.database.mongodb.use === 'deployment' ? _config2.default.database.mongodb.deployment : _config2.default.database.mongodb.development);
@@ -795,16 +791,8 @@ mongoose.connection.on('connected', function () {
     console.log('MongoDB -> connected');
 });
 
-_market.Schema_Market.plugin(AutoIncrement);
-_market.Schema_Market.plugin(paginate);
-
-var Market = exports.Market = mongoose.model('Market', _market.Schema_Market);
-
 var User = exports.User = mongoose.model('User', _user.Schema_User);
 var Clients = exports.Clients = mongoose.model('Client', _client.Schema_Client);
-
-var Forges = exports.Forges = mongoose.model('Forge', _client.Schema_Forge);
-var PublicKeys = exports.PublicKeys = mongoose.model('PublicKeys', _client.Schema_PublicKeys);
 
 /***/ }),
 /* 18 */
@@ -821,6 +809,8 @@ var PublicKeys = exports.PublicKeys = mongoose.model('PublicKeys', _client.Schem
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+var mongoose = __webpack_require__(19);
+
 var Schema_Client = mongoose.Schema({
     socketId: String,
     uuid: String,
@@ -850,6 +840,12 @@ exports.Schema_Forge = Schema_Forge;
 
 /***/ }),
 /* 19 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
+
+/***/ }),
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -863,6 +859,8 @@ exports.Schema_Forge = Schema_Forge;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+var mongoose = __webpack_require__(19);
+
 var Schema_User = mongoose.Schema({
     username: String,
     gender: String,
@@ -923,80 +921,13 @@ var Schema_User = mongoose.Schema({
 exports.Schema_User = Schema_User;
 
 /***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Created by Alizée Wickenheiser on 6/9/18.
- * Les contes de fées sont faits pour être défaits...
- */
-
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var Schema_Market = mongoose.Schema({
-    _id: Number,
-    id: String,
-    name: String,
-    album: String,
-    artist: String,
-    language: {
-        song: {
-            name: String,
-            native: String,
-            code: String
-        },
-        transcribe: {
-            name: String,
-            native: String,
-            code: String
-        }
-    },
-    album_art: String,
-    username: String,
-    lyrics_id: String,
-    likes: String,
-    bounty: {
-        total: String,
-        details: Array
-    },
-    date: {
-        type: Date,
-        default: Date.now
-    }
-}, { _id: false });
-
-exports.Schema_Market = Schema_Market;
-
-/***/ }),
 /* 21 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose-paginate");
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose-sequence");
-
-/***/ }),
-/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("uuid");
 
 /***/ }),
-/* 25 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1017,26 +948,24 @@ exports.authorize = authorize;
 exports.isLogin = isLogin;
 exports.socketHandler = socketHandler;
 
-var _config = __webpack_require__(1);
+var _model = __webpack_require__(23);
 
-var _config2 = _interopRequireDefault(_config);
-
-var _user_model = __webpack_require__(26);
-
-var User = _interopRequireWildcard(_user_model);
+var User = _interopRequireWildcard(_model);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 //-| login |------------------------------|
 function login(req, res, next) {
-    if (req.session.user) return res.redirect('/home');
+    if (req.session.user) {
+        res.cookie('session', JSON.stringify({
+            user: req.session.user
+        }));
+        return res.redirect('/');
+    }
 
     var user = {
-        username: req.body.username,
-        password: req.body.password,
-        ip: __webpack_require__(30).getClientIp(req)
+        email: req.body.email,
+        password: req.body.password
     };
 
     User.authenticate(user, function (err, dbUser) {
@@ -1045,9 +974,12 @@ function login(req, res, next) {
             // details correct - login user.
             req.session.user = {
                 id: dbUser.id,
-                username: dbUser.username
+                email: dbUser.email
             };
-            res.redirect('/home');
+            res.cookie('session', JSON.stringify({
+                user: req.session.user
+            }));
+            res.redirect('/');
         } else {
             // incorrect details
             res.redirect('/login');
@@ -1057,49 +989,91 @@ function login(req, res, next) {
 
 //-| register |------------------------------|
 function register(req, res, next) {
-    if (req.session.user) return res.redirect('/home');
+    if (req.session.user) {
+        res.cookie('session', JSON.stringify({
+            user: req.session.user
+        }));
+        return res.redirect('/');
+    }
+
+    if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+        return res.json({
+            response: {
+                code: 1,
+                description: 'Please select captcha'
+            }
+        });
+    }
 
     var user = {
-        username: req.body.username,
-        password: req.body.password,
         email: req.body.email,
-        gender: req.body.gender,
-        ip: __webpack_require__(30).getClientIp(req)
+        password: req.body.password
     };
 
-    User.register(user, function (err, status) {
-        if (err) return next(err);
-        if (status == 'email already exists error') res.redirect('/register');else if (status === 'user already exists error') res.redirect('/register');else {
-            // Create account.
-            User.create(user, function (err, dbUser) {
-                if (err) {
-                    console.log('register create error: ' + err);
-                    return next(err);
-                } else {
-                    User.authenticate(user, function (err, dbUser) {
-                        if (err) {
-                            console.log('user.authenticate error: ' + err);
-                            return next(err);
-                        } else if (user) {
-                            req.session.user = {
-                                id: dbUser.id,
-                                username: dbUser.username
-                            };
-                            res.redirect('/home');
-                        } else {
-                            res.redirect('/login');
-                        }
-                    });
-                }
-            });
-        }
+    var https = __webpack_require__(25);
+    var url = 'https://www.google.com/recaptcha/api/siteverify?secret=' + '6Ld0gWEUAAAAAB993WqFavGIslEpDtrxNBJr2Nqr' + '&response=' + req.body['g-recaptcha-response'] + '&remoteip=' + req.connection.remoteAddress;
+
+    https.get(url, function (response) {
+        response.setEncoding('utf8');
+        var body = '';
+        response.on('data', function (data) {
+            body += data;
+        });
+        response.on('end', function () {
+            body = JSON.parse(body);
+            if (body.success !== undefined && !body.success) {
+                return res.json({
+                    responseCode: 1,
+                    responseDesc: 'Failed captcha verification'
+                });
+            } else {
+                User.register(user, function (err, status) {
+                    if (err) return next(err);
+                    if (status === '[error] Email previously registered') res.redirect('/register');else {
+                        // Create account.
+                        User.create(user, function (err, dbObj) {
+                            if (err) {
+                                console.log('[register] create error: ' + err);
+                                return next(err);
+                            } else {
+                                User.authenticate(user, function (err, dbObj) {
+                                    if (err) {
+                                        console.log('[register] user.authenticate error: ' + err);
+                                        return next(err);
+                                    } else if (user) {
+                                        req.session.user = {
+                                            id: dbObj.id,
+                                            email: dbObj.email
+                                        };
+                                        res.cookie('session', JSON.stringify({
+                                            user: req.session.user
+                                        }));
+                                        res.redirect('/');
+                                    } else {
+                                        res.redirect('/login');
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
     });
 }
 
 //-| logout |------------------------------|
 function logout(req, res, next) {
-    delete req.session.user;
-    res.redirect('/home');
+    if (req.session.user) {
+        req.session.destroy(function (err) {
+            if (err) return next(err);
+            res.clearCookie('adultplay');
+            res.redirect('/');
+        });
+    } else {
+        res.clearCookie('adultplay');
+        res.redirect('/');
+    }
 }
 
 //-| authorize address to only registered users |--|
@@ -1256,58 +1230,10 @@ function socketHandler(socket) {
             }
         });
     });
-
-    socket.on('get_avatar', function (data) {
-        User.getUsersAvatars(data.usernames, function (err, result) {
-            if (err) {
-                console.log('get_avatar err ' + err);
-                socket.emit('failure', {
-                    api: 'avatar',
-                    status: 'fetched avatars failed',
-                    avatars: result,
-                    socketid: socket.id.toString(),
-                    session: socket.handshake.session
-                });
-            } else {
-                socket.emit('success', {
-                    api: 'avatar',
-                    status: 'avatars fetched',
-                    avatars: result,
-                    socketid: socket.id.toString(),
-                    session: socket.handshake.session
-                });
-            }
-        });
-    });
-
-    socket.on('update_avatar', function (data) {
-        if (socket.handshake.session.user != null) {
-            if (socket.handshake.session.user.username === data.username) {
-                User.updateUserAvatar(data, function (err, result) {
-                    if (err) {
-                        console.log('update_avatar error: ' + err);
-                        socket.emit('failure', {
-                            api: 'avatar',
-                            status: 'failed to update avatar',
-                            socketid: socket.id.toString(),
-                            session: socket.handshake.session
-                        });
-                    } else {
-                        socket.emit('success', {
-                            api: 'avatar',
-                            status: 'updated avatar',
-                            socketid: socket.id.toString(),
-                            session: socket.handshake.session
-                        });
-                    }
-                });
-            }
-        }
-    });
 }
 
 /***/ }),
-/* 26 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1327,47 +1253,31 @@ exports.register = register;
 exports.authenticate = authenticate;
 exports.get = get;
 exports.all = all;
-exports.getUsersAvatars = getUsersAvatars;
-exports.updateUserAvatar = updateUserAvatar;
-
-var _config = __webpack_require__(1);
-
-var _config2 = _interopRequireDefault(_config);
 
 var _mongodb = __webpack_require__(17);
 
-var _bcryptjs = __webpack_require__(27);
+var _bcryptjs = __webpack_require__(24);
 
 var _bcryptjs2 = _interopRequireDefault(_bcryptjs);
 
-var _fs = __webpack_require__(28);
-
-var _fs2 = _interopRequireDefault(_fs);
-
-var _storage = __webpack_require__(29);
-
-var _storage2 = _interopRequireDefault(_storage);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var gcs = (0, _storage2.default)({
-    projectId: 'intralizee',
-    keyFilename: _config2.default.gcloud.use === 'deployment' ? _config2.default.gcloud.deployment : _config2.default.gcloud.development
-}),
-    bucket_avatars = gcs.bucket('loris-user-avatars');
-
 function create(user, cb) {
-    var dbUser = new _mongodb.User({
-        username: user.username,
-        password: hash(user.password),
-        gender: user.gender,
-        currency: '$0.00',
-        contact: {
-            email: user.email
+    var uuid = __webpack_require__(21);
+    user.uuid = uuid.v4();
+    _mongodb.User.findOne({ uuid: user.uuid }, function (err, dbObj) {
+        if (dbObj) {
+            // exists in collection.
+            user.uuid = uuid.v4();
         }
-    });
-    dbUser.save(function (err) {
-        if (err) cb(err);else cb(null, dbUser);
+        var newUser = new _mongodb.User({
+            email: user.email,
+            uuid: user.uuid,
+            password: hash(user.password)
+        });
+        newUser.save(function (err) {
+            if (err) cb(err);else cb(null, newUser);
+        });
     });
 }
 
@@ -1378,13 +1288,10 @@ function remove(id, cb) {
 }
 
 function register(user, cb) {
-    if (user.username && user.email && user.password) {
-        _mongodb.User.findOne({ 'contact.email': user.email }, function (err, dbUser) {
+    if (user.email && user.password) {
+        _mongodb.User.findOne({ 'email': user.email }, function (err, dbObj) {
             if (err) return cb(err);
-            if (dbUser) cb(null, 'email already exists error');else _mongodb.User.findOne({ username: user.username }, function (err, dbUser) {
-                if (err) return cb(err);
-                if (dbUser) cb(null, 'user already exists error');else cb();
-            });
+            if (dbObj) cb(null, '[error] Email previously registered');else cb(); // success.
         });
     } else {
         cb('error');
@@ -1392,116 +1299,46 @@ function register(user, cb) {
 }
 
 function authenticate(user, cb) {
-    _mongodb.User.findOne({ username: user.username }, '-gender -avatar -name -location -contact -__v', function (err, dbUser) {
-        if (err) cb(err);else if (dbUser && _bcryptjs2.default.compareSync(user.password, dbUser.password)) {
-            storeLoginInformation(dbUser, user.ip);
-            cb(null, dbUser);
+    _mongodb.User.findOne({ email: user.email }, '-gender -avatar -name -location -contact -__v', function (err, dbObj) {
+        if (err) cb(err);else if (dbObj && _bcryptjs2.default.compareSync(user.password, dbObj.password)) {
+            cb(null, dbObj);
         } else cb(null);
     });
 }
 
-//-| get user by id |----------------------|
+//-| get user by id |--------|
 function get(id, cb) {
     _mongodb.User.findOne({ _id: id }, function (err, user) {
         if (err) cb(err);else cb(user);
     });
 }
 
-//-| get all users |-------------------|
+//-| get all users |--------------------|
 function all(cb) {
     _mongodb.User.find({}, function (err, users) {
         if (err) cb(err);else cb(users);
     });
 }
 
-//-| hash data 'a string' |----------------|
+//-| hash data 'a string' |---------|
 var hash = function hash(data) {
     return _bcryptjs2.default.hashSync(data, 8);
 };
 
-//-| store user IP Address and time of login.
-var storeLoginInformation = function storeLoginInformation(user, ip) {
-    if (user.info.ip.login.now != null) user.info.ip.previous = user.info.ip.now;
-    if (user.info.date.login.now != null) user.info.date.login.previous = user.info.date.login.now;
-    user.info.date.login.now = Date.now();
-    user.info.date.login.history.push({
-        date: Date.now()
-    });
-    user.info.ip.login.now = ip;
-    user.info.ip.login.history.push({
-        ip: ip
-    });
-    user.save();
-};
-
-function getUsersAvatars(users, cb) {
-    var search = [];
-    for (var i in users) {
-        search.push({ username: users[i] });
-    } // Search for {username: example1}, {username: example2}, ...
-    _mongodb.User.find({
-        '$or': search
-    }, '-gender -password -name -location -contact -info -__v -_id', function (err, result) {
-        if (err) cb(err);
-        console.log('result is ' + result);
-        cb(null, result);
-    });
-}
-
-function updateUserAvatar(data, cb) {
-    _mongodb.User.findOne({ username: data.username }, function (err, user) {
-        if (err) cb(err);
-        if (user) {
-            //user.avatar = data.avatar;
-            _fs2.default.writeFile('./lib/user/avatars_tmp/' + user.username, data.avatar, { flag: 'w' }, function (err) {
-                if (err) console.log('writing file err: ' + err);else {
-                    console.log('file written');
-
-                    bucket_avatars.upload('./lib/user/avatars_tmp/' + user.username, function (err, file) {
-                        if (err) console.log('upload avatar err: ' + err);else {
-                            console.log('its now in my bucket');
-                            user.avatar = 'https://storage.googleapis.com/lyrics-user-avatars/' + user.username;
-                            _fs2.default.unlink('./lib/user/avatars_tmp/' + user.username, function (err) {
-                                if (err) console.log('delete avatar err: ' + err);
-                            });
-                            user.save(function (err) {
-                                if (err) cb(err);
-                                cb(null, 'success');
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    });
-}
-
 /***/ }),
-/* 27 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("bcryptjs");
 
 /***/ }),
-/* 28 */
+/* 25 */
 /***/ (function(module, exports) {
 
-module.exports = require("fs");
+module.exports = require("https");
 
 /***/ }),
-/* 29 */
-/***/ (function(module, exports) {
-
-module.exports = require("@google-cloud/storage");
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports) {
-
-module.exports = require("request-ip");
-
-/***/ }),
-/* 31 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("debug");
