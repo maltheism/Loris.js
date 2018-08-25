@@ -482,6 +482,9 @@ class App extends Component {
                                 <i id='sidebar_element_icon_fifth' className='material-icons' style={{color: '#003554', height: '56px', lineHeight: '56px', fontSize: '1.9rem'}}>school</i>
                             </a>
                         </div>
+
+                        {/*<div style={{height: '2px', marginTop: '20px', marginLeft: '4px', width: '90%', background: '#EDEDED'}}></div>*/}
+
                         <div id='app_sidebar_footer' style={{display: 'none', opacity: 0, height: '40px', lineHeight: '40px', marginTop: 'auto', marginBottom: '64px', cursor: 'pointer', color: '#2E2C2F', background: 'linear-gradient(#FDFDFD, #E6E6E6)', borderTop: 'solid 1px #EDEDED'}}>
                             Settings
                         </div>
@@ -597,7 +600,7 @@ class App extends Component {
                         </li>
                         <li className='no-padding'>
                             <ul className='collapsible collapsible-accordion'>
-                                <li>
+                                <li className='center'>
                                     <a className='tooltipped' style={style.menu.navigation.mobile.tooltip} data-position='bottom' data-tooltip='Data Coordinating Center</br>Montreal</br>Ottawa</br>Rome'>
                                         Site Affiliations: 4
                                     </a>
