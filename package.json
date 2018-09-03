@@ -24,7 +24,7 @@
     "hbs": "~4.0.1",
     "helmet": "^3.13.0",
     "http-errors": "~1.7.0",
-    "mongoose": "^5.2.11",
+    "mongoose": "^5.2.12",
     "mongoose-paginate": "^5.0.3",
     "mongoose-sequence": "^4.0.1",
     "morgan": "~1.9.0",
@@ -34,11 +34,11 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-loader": "^8.0.0",
+    "babel-loader": "^8.0.2",
     "babel-preset-env": "^1.7.0",
     "concurrently": "^4.0.0",
     "json-loader": "^0.5.7",
-    "webpack": "^4.17.1",
+    "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",
     "webpack-node-externals": "^1.7.2"
   }
